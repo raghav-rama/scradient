@@ -20,3 +20,17 @@ function getRandomColor() {
   for (let i = 0; i < 6; i++) color += letters[Math.floor(Math.random() * 16)];
   return color;
 }
+
+function handleStart() {
+  setInterval(randomGradient, 100);
+  hideContainer();
+}
+
+function hideContainer() {
+  let container = document.getElementById("container");
+  container.style.transition = "opacity 0.5s ease-out";
+  container.style.opacity = "0";
+  setTimeout(() => {
+    container.style.display = "none";
+  }, 500);
+}
