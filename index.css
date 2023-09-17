@@ -1,0 +1,54 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    overflow: hidden;
+}
+
+.my-material-icons {
+    font-size: 50px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#gradient {
+    width: auto;
+    height: 100vh;
+}
+
+.container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;
+}
+
+#start-btn {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4vh;
+}
+
+#start-btn:hover {
+    cursor: pointer;
+}
+
+#start-btn:active {
+    transform: translate(-50%, -50%) scale(0.95);
+}
+
+#hero-heading {
+    position: relative;
+    font-size: 10vh;
+    color: white;
+    text-align: center;
+    width: 100%;
+    margin: 0;
+    padding-bottom: 5%;
+}
