@@ -55,6 +55,10 @@ function getRandomColor() {
 function handleStart() {
   setInterval(randomGradient, 5000);
   hideContainer();
+  let body = document.body;
+  if (body.requestFullscreen) {
+    body.requestFullscreen();
+  }
 }
 
 function hideContainer() {
