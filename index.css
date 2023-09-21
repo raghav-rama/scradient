@@ -16,6 +16,10 @@ body {
 #gradient {
     width: auto;
     height: 100vh;
+    animation-name: fade-in;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
 }
 
 .container {
@@ -32,7 +36,7 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 4vh;
+    font-size: 3vw;
 }
 
 #start-btn:hover {
@@ -45,10 +49,19 @@ body {
 
 #hero-heading {
     position: relative;
-    font-size: 10vh;
+    font-size: 5vw;
     color: white;
     text-align: center;
     width: 100%;
     margin: 0;
     padding-bottom: 5%;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
