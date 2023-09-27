@@ -4,6 +4,7 @@ window.onload = function () {
 
 function randomGradient() {
   let gradient = document.getElementById("gradient");
+  let childContainer = document.createElement("div");
   let color1 = getRandomColor();
   let color2 = getRandomColor();
   let degree = Math.floor(Math.random() * 360);
@@ -20,7 +21,6 @@ function randomGradient() {
 
   color1 = getRandomColor();
   color2 = getRandomColor();
-  let childContainer = document.createElement("div");
   childContainer.className = "child-container";
   childContainer.style.opacity = "0";
   childContainer.style.transition = "opacity 2.5s ease-out";
