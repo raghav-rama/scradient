@@ -65,3 +65,37 @@ body {
         opacity: 1;
     }
 }
+
+.controls {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    gap: 10px;
+    opacity: 0.3;
+    transition: opacity 0.3s;
+}
+
+.controls:hover {
+    opacity: 1;
+}
+
+.control-btn {
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    color: white;
+    transition: background 0.3s;
+}
+
+.control-btn:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
