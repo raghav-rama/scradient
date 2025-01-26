@@ -1,68 +1,89 @@
+// global variables for better caching and performance
+let gradient, container;
+
 window.onload = function () {
+  gradient = document.getElementById("gradient");
+  container = document.getElementById("container");
   randomGradient();
 };
 
 function randomGradient() {
-  let gradient = document.getElementById("gradient");
-  let childContainer = document.createElement("div");
-  let color1 = getRandomColor();
-  let color2 = getRandomColor();
-  let degree = Math.floor(Math.random() * 360);
+  const childContainer = document.createElement("div");
+  const color1 = getRandomColor();
+  const color2 = getRandomColor();
+  const degree = Math.floor(Math.random() * 360);
+  const gradientStyle = `linear-gradient(${degree}deg, ${color1}, ${color2})`;
+
+  if (!gradient.style.transition) {
+    gradient.style.cssText = `
+      opacity: 1;
+      transition: opacity 2.5s ease-out;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+      margin: 0;
+    `;
+
+    container.style.cssText = `
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+    `;
+  }
+
+  gradient.style.background = gradientStyle;
   gradient.style.opacity = "1";
-  gradient.style.transition = "opacity 2.5s ease-out";
-  gradient.style.background = `linear-gradient(${degree}deg, ${color1}, ${color2})`;
-  gradient.style.backgroundRepeat = "no-repeat";
-  gradient.style.backgroundAttachment = "fixed";
-  gradient.style.backgroundSize = "cover";
-  gradient.style.margin = "0";
-  setTimeout(() => {
+
+  requestAnimationFrame(() => {
     gradient.style.opacity = "0";
-  }, 1000);
+  });
 
-  color1 = getRandomColor();
-  color2 = getRandomColor();
   childContainer.className = "child-container";
-  childContainer.style.opacity = "0";
-  childContainer.style.transition = "opacity 2.5s ease-out";
-  childContainer.style.position = "absolute";
-  childContainer.style.top = "0";
-  childContainer.style.left = "0";
-  childContainer.style.width = "100%";
-  childContainer.style.height = "100%";
-  childContainer.style.background = `linear-gradient(${degree}deg, ${color1}, ${color2})`;
-  gradient.appendChild(childContainer);
-  setTimeout(() => {
-    childContainer.style.opacity = "1";
-  }, 1000);
+  childContainer.style.cssText = `
+    opacity: 0;
+    transition: opacity 2.5s ease-out;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: ${gradientStyle};
+  `;
 
-  let container = document.getElementById("container");
-  container.style.position = "absolute";
-  container.style.top = "50%";
-  container.style.left = "50%";
-  container.style.transform = "translate(-50%, -50%)";
-  container.style.zIndex = "1";
+  gradient.appendChild(childContainer);
+
+  requestAnimationFrame(() => {
+    childContainer.style.opacity = "1";
+  });
+
+  // cleanup
+  const oldContainers = gradient.getElementsByClassName("child-container");
+  if (oldContainers.length > 2) {
+    gradient.removeChild(oldContainers[0]);
+  }
 }
 
 function getRandomColor() {
-  let letters = "0123456789ABCDEF";
-  let color = "#";
-  for (let i = 0; i < 6; ++i) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
+  return (
+    "#" +
+    Math.floor(Math.random() * 16777215)
+      .toString(16)
+      .padStart(6, "0")
+  );
 }
 
 function handleStart() {
   setInterval(randomGradient, 5000);
   hideContainer();
-  let body = document.body;
-  if (body.requestFullscreen) {
-    body.requestFullscreen();
+
+  if (document.documentElement.requestFullscreen) {
+    document.documentElement.requestFullscreen().catch(() => {});
   }
 }
 
 function hideContainer() {
-  let container = document.getElementById("container");
   container.style.transition = "opacity 0.5s ease-out";
   container.style.opacity = "0";
   setTimeout(() => {
