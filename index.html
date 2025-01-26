@@ -3,8 +3,62 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Scradient</title>
-    <script src="https://use.fontawesome.com/968ab66d31.js"></script>
+    <title>Scradient - Beautiful Gradient Screensaver</title>
+    <script
+      src="https://kit.fontawesome.com/fb922ee061.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <meta
+      name="description"
+      content="Scradient is a beautiful, smooth gradient screensaver that creates calming color transitions. Perfect for relaxation and ambient displays."
+    />
+    <meta
+      name="keywords"
+      content="screensaver, gradient, color transitions, ambient display, relaxation, web screensaver"
+    />
+    <meta name="author" content="Ritvik" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://scradient.theritvik.in/" />
+    <meta
+      property="og:title"
+      content="Scradient - Beautiful Gradient Screensaver"
+    />
+    <meta
+      property="og:description"
+      content="Experience smooth, calming color transitions with this beautiful gradient screensaver."
+    />
+    <meta
+      property="og:image"
+      content="https://cdn.pixabay.com/photo/2016/12/20/06/25/blend-1919776_640.jpg"
+    />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://scradient.theritvik.in/" />
+    <meta
+      property="twitter:title"
+      content="Scradient - Beautiful Gradient Screensaver"
+    />
+    <meta
+      property="twitter:description"
+      content="Experience smooth, calming color transitions with this beautiful gradient screensaver."
+    />
+    <meta
+      property="twitter:image"
+      content="https://cdn.pixabay.com/photo/2016/12/20/06/25/blend-1919776_640.jpg"
+    />
+
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      type="image/jpeg"
+      sizes="180x180"
+      href="https://cdn.pixabay.com/photo/2016/12/20/06/25/blend-1919776_640.jpg"
+    />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -15,29 +69,54 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
     />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Scradient",
+        "description": "A beautiful gradient screensaver that creates smooth color transitions for a calming ambient display.",
+        "url": "https://scradient.theritvik.in/",
+        "applicationCategory": "Multimedia",
+        "operatingSystem": "Any",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "author": {
+          "@type": "Person",
+          "name": "Ritvik"
+        }
+      }
+    </script>
+
     <link rel="stylesheet" href="styles.css" />
     <script src="script.js"></script>
-    <link
-      rel="icon"
-      sizes="180x180"
-      href="https://cdn.pixabay.com/photo/2016/12/20/06/25/blend-1919776_640.jpg"
-    />
   </head>
   <body>
-    <div id="gradient">
+    <main id="gradient">
       <div id="container">
         <h1 id="hero-heading">Welcome to Scradient!</h1>
-        <button id="start-btn" onclick="handleStart()">Start</button>
+        <button
+          id="start-btn"
+          onclick="handleStart()"
+          aria-label="Start Screensaver"
+        >
+          Start
+        </button>
       </div>
-    </div>
-    <div class="controls">
+    </main>
+    <nav class="controls" aria-label="Screensaver Controls">
       <button
         id="fullscreenBtn"
         class="control-btn"
         title="Toggle Fullscreen"
         onclick="toggleFullscreen()"
+        aria-label="Toggle Fullscreen Mode"
       >
-        <svg viewBox="0 0 24 24" width="24" height="24">
+        <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
           <path
             d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"
             fill="currentColor"
@@ -49,11 +128,12 @@
         class="control-btn"
         title="Stop Screensaver"
         onclick="stopScreensaver()"
+        aria-label="Stop Screensaver"
       >
-        <svg viewBox="0 0 24 24" width="24" height="24">
+        <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
           <rect x="6" y="6" width="12" height="12" fill="currentColor" />
         </svg>
       </button>
-    </div>
+    </nav>
   </body>
 </html>
