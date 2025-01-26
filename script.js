@@ -59,11 +59,16 @@ function randomGradient() {
   if (!gradient.style.transition) {
     gradient.style.cssText = `
       opacity: 1;
-      transition: opacity 2.5s ease-out;
+      transition: opacity 2.5s cubic-bezier(0.4, 0, 0.2, 1);
       background-repeat: no-repeat;
       background-attachment: fixed;
       background-size: cover;
       margin: 0;
+      will-change: opacity;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      transform: translateZ(0);
+      -webkit-transform: translateZ(0);
     `;
 
     container.style.cssText = `
@@ -72,33 +77,45 @@ function randomGradient() {
       left: 50%;
       transform: translate(-50%, -50%);
       z-index: 1;
+      will-change: transform;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
     `;
   }
 
   gradient.style.background = gradientStyle;
   gradient.style.opacity = "1";
 
-  requestAnimationFrame(() => {
-    gradient.style.opacity = "0";
-  });
+  setTimeout(() => {
+    requestAnimationFrame(() => {
+      gradient.style.opacity = "0";
+    });
+  }, 50);
 
   childContainer.className = "child-container";
   childContainer.style.cssText = `
     opacity: 0;
-    transition: opacity 2.5s ease-out;
+    transition: opacity 2.5s cubic-bezier(0.4, 0, 0.2, 1);
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background: ${gradientStyle};
+    will-change: opacity;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transform: translateZ(0); 
+    -webkit-transform: translateZ(0);
   `;
 
   gradient.appendChild(childContainer);
 
-  requestAnimationFrame(() => {
-    childContainer.style.opacity = "1";
-  });
+  setTimeout(() => {
+    requestAnimationFrame(() => {
+      childContainer.style.opacity = "1";
+    });
+  }, 50);
 
   // cleanup
   const oldContainers = gradient.getElementsByClassName("child-container");
