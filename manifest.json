@@ -1,0 +1,16 @@
+{
+  "name": "Scradient",
+  "short_name": "Scradient",
+  "description": "Beautiful gradient screensaver with smooth color transitions",
+  "start_url": "/",
+  "display": "fullscreen",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "icons": [
+    {
+      "src": "https://cdn.pixabay.com/photo/2016/12/20/06/25/blend-1919776_640.jpg",
+      "sizes": "640x640",
+      "type": "image/jpeg"
+    }
+  ]
+}
