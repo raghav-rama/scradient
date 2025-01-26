@@ -1,11 +1,114 @@
 // global variables for better caching and performance
 let gradient, container;
+let intervalId = null;
+let isFullscreen = false;
 
 window.onload = function () {
   gradient = document.getElementById("gradient");
   container = document.getElementById("container");
+  setupControls();
   randomGradient();
 };
+
+function setupControls() {
+  const controls = document.createElement("div");
+  controls.className = "controls";
+  controls.innerHTML = `
+    <button id="fullscreenBtn" class="control-btn" title="Toggle Fullscreen">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z" fill="currentColor"/>
+      </svg>
+    </button>
+    <button id="stopBtn" class="control-btn" title="Stop Screensaver">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <rect x="6" y="6" width="12" height="12" fill="currentColor"/>
+      </svg>
+    </button>
+  `;
+
+  document.body.appendChild(controls);
+
+  const fullscreenBtn = document.getElementById("fullscreenBtn");
+  const stopBtn = document.getElementById("stopBtn");
+
+  fullscreenBtn.addEventListener("click", toggleFullscreen);
+  stopBtn.addEventListener("click", stopScreensaver);
+
+  const style = document.createElement("style");
+  style.textContent = `
+    .controls {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      display: flex;
+      gap: 10px;
+      opacity: 0.3;
+      transition: opacity 0.3s;
+    }
+    .controls:hover {
+      opacity: 1;
+    }
+    .control-btn {
+      background: rgba(0, 0, 0, 0.5);
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      color: white;
+      transition: background 0.3s;
+    }
+    .control-btn:hover {
+      background: rgba(0, 0, 0, 0.8);
+    }
+  `;
+  document.head.appendChild(style);
+}
+
+function toggleFullscreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch(() => {});
+    isFullscreen = true;
+  } else {
+    document.exitFullscreen();
+    isFullscreen = false;
+  }
+  updateFullscreenButton();
+}
+
+function updateFullscreenButton() {
+  const btn = document.getElementById("fullscreenBtn");
+  if (!btn) return;
+
+  btn.innerHTML = isFullscreen
+    ? `
+    <svg viewBox="0 0 24 24" width="24" height="24">
+      <path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z" fill="currentColor"/>
+    </svg>
+  `
+    : `
+    <svg viewBox="0 0 24 24" width="24" height="24">
+      <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z" fill="currentColor"/>
+    </svg>
+  `;
+}
+
+function stopScreensaver() {
+  if (intervalId) {
+    clearInterval(intervalId);
+    intervalId = null;
+  }
+  if (document.fullscreenElement) {
+    document.exitFullscreen();
+  }
+  container.style.display = "block";
+  container.style.opacity = "1";
+}
 
 function randomGradient() {
   const childContainer = document.createElement("div");
@@ -75,11 +178,12 @@ function getRandomColor() {
 }
 
 function handleStart() {
-  setInterval(randomGradient, 5000);
+  intervalId = setInterval(randomGradient, 5000);
   hideContainer();
-
-  if (document.documentElement.requestFullscreen) {
+  if (!document.fullscreenElement) {
     document.documentElement.requestFullscreen().catch(() => {});
+    isFullscreen = true;
+    updateFullscreenButton();
   }
 }
 
